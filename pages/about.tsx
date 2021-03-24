@@ -1,9 +1,8 @@
-import { NextPage } from 'next'
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import { NextPage } from 'next';
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
-interface Props {
-}
+interface Props {}
 
 const AboutPage: NextPage<Props> = () => {
   return (
@@ -16,7 +15,7 @@ const AboutPage: NextPage<Props> = () => {
         </Link>
       </p>
     </Layout>
-  )
-)
+  );
+};
 
-export default AboutPage
+export default AboutPage;
