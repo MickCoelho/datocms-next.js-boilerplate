@@ -1,0 +1,142 @@
+{
+  "ignoreFiles": [
+    "./node_modules/**"
+  ],
+  "plugins": [
+    "stylelint-declaration-use-variable"
+  ],
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
+    "sh-waqar/declaration-use-variable": [
+      [
+        "/color/",
+        "z-index",
+        "font-size",
+        "line-height",
+        "letter-spacing"
+      ]
+    ],
+    "declaration-property-value-disallowed-list": {
+      "border": [
+        "none"
+      ]
+    },
+    "declaration-empty-line-before": "never",
+    "declaration-no-important": true,
+    "declaration-property-unit-allowed-list": {
+      "line-height": [],
+      "letter-spacing": [
+        "em",
+        "rem"
+      ]
+    },
+    "declaration-block-no-duplicate-properties": true,
+    "selector-max-empty-lines": 1,
+    "max-empty-lines": 1,
+    "block-opening-brace-space-before": "always",
+    "block-opening-brace-newline-after": "always-multi-line",
+    "block-closing-brace-newline-after": [
+      "always-multi-line",
+      {
+        "ignoreAtRules": [
+          "if",
+          "else"
+        ]
+      }
+    ],
+    "no-missing-end-of-source-newline": true,
+    "block-no-empty": true,
+    "block-closing-brace-empty-line-before": "never",
+    "rule-empty-line-before": [
+      "always",
+      {
+        "except": [
+          "first-nested"
+        ],
+        "ignore": [
+          "after-comment"
+        ]
+      }
+    ],
+    "indentation": 2,
+    "color-hex-length": null,
+    "function-parentheses-space-inside": "never",
+    "number-leading-zero": "always",
+    "color-hex-case": "lower",
+    "selector-class-pattern": "^((?:-{1,2}|_{2})?[a-z0-9]+(?:(?:-{1,2}|_{2})[a-z0-9]+)*)(?:-{1,2}|_{2})?$",
+    "no-duplicate-selectors": true,
+    "max-nesting-depth": 4,
+    "string-quotes": "single",
+    "declaration-block-trailing-semicolon": "always",
+    "no-eol-whitespace": true,
+    "number-no-trailing-zeros": true,
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-list-comma-newline-after": "always",
+    "value-list-comma-space-after": "always-single-line",
+    "declaration-colon-space-after": "always-single-line",
+    "declaration-colon-space-before": "never",
+    "declaration-colon-newline-after": null,
+    "function-url-quotes": "always",
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-semicolon-newline-after": "always",
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "length-zero-no-unit": true,
+    "no-descending-specificity": null,
+    "at-rule-empty-line-before": [
+      "never",
+      {
+        "ignoreAtRules": [
+          "define-mixin",
+          "include",
+          "media",
+          "import",
+          "custom-media",
+          "for",
+          "mixin",
+          "content",
+          "value",
+          "/^lost/"
+        ]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "/^lost/"
+        ]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "define-mixin",
+          "include",
+          "media",
+          "custom-media",
+          "global-import",
+          "for",
+          "mixin",
+          "content",
+          "value",
+          "/^lost/"
+        ]
+      }
+    ]
+  }
+}
