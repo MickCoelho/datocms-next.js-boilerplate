@@ -21,15 +21,62 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier"
   ],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-max-props-per-line": [1, { "maximum": 4 }],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "new-cap": [
+      2,
+      {
+        "capIsNew": false,
+        "newIsCap": true
+      }
+    ],
+    "no-param-reassign": 0,
+    "no-shadow": 0,
+    "no-underscore-dangle": 0,
+    "no-tabs": 0,
+    "comma-dangle": ["error", "always-multiline"],
+    "no-confusing-arrow": [
+      "error",
+      {
+        "allowParens": true
+      }
+    ],
+    "object-curly-newline": 0,
+    "import/no-named-as-default": 0,
+    "react/jsx-indent-props": [2, 2],
+    "react/jsx-indent": [2, 2],
+    "react/no-danger": 0,
+    "react/require-default-props": 0,
+    "react/prefer-stateless-function": 0,
+    "react/no-children-prop": 0,
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true
+      }
+    ],
+    "jsx-a11y/media-has-caption": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
     "import/extensions": "off",
     "react/prop-types": "off",
-    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "prettier/prettier": "error",
     "react/no-unescaped-entities": "off",
