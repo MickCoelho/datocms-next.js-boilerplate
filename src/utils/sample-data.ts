@@ -1,5 +1,6 @@
 import { User } from '../interfaces';
 
+console.log('ok');
 /** Dummy user data. */
 // eslint-disable-next-line import/prefer-default-export
 export const sampleUserData: User[] = [
