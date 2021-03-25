@@ -9,7 +9,6 @@ const AboutPage: NextPage = () => {
     <Layout title="About Page">
       <h1>About</h1>
       <p>This is the about page</p>
-      <a>Users List</a>
       <p>
         <Link href="/">
           <a>Go home</a>
