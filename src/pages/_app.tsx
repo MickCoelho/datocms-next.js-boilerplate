@@ -10,6 +10,7 @@ type Props = {
   appProps: CMSApp;
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = ({ Component, pageProps, appProps }: Props) => {
   return (
     <div className="app-container">
