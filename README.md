@@ -18,6 +18,12 @@
 ## How to use
 ### Duplicate DatoCMS template
 ...
+
+### Create a Page 
+...
+
+### Add modules to Pages
+...
 ### Set up environment variables
 
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
