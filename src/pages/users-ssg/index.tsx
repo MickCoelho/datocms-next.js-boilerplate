@@ -14,7 +14,8 @@ const Users: NextPage<Props> = ({ users }: Props) => (
   <Layout title="Users List page">
     <h1>Users List</h1>
     <p>
-      Example fetching data from inside <code>getStaticProps()</code>.
+      Example fetching data from inside <code>getStaticProps()</code> and so
+      requires a deploy to be updated.
     </p>
     <p>You are currently on: /users</p>
     <List users={users} />

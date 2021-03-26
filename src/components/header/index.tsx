@@ -13,8 +13,12 @@ const Header: VoidFunctionComponent = () => (
           <a>About</a>
         </Link>{' '}
         |{' '}
-        <Link href="/users">
-          <a>Users List</a>
+        <Link href="/users-ssg">
+          <a>Users List SSG</a>
+        </Link>{' '}
+        |{' '}
+        <Link href="/users-ssr">
+          <a>Users List SSR</a>
         </Link>{' '}
         | <a href="/api/users">Users API</a>
       </nav>
