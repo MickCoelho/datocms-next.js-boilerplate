@@ -3,14 +3,14 @@ import ListItem from './ListItem';
 import { User } from '../interfaces';
 
 type Props = {
-  items: User[];
+  users: User[];
 };
 
-const List: FunctionComponent<Props> = ({ items }: Props) => (
+const List: FunctionComponent<Props> = ({ users }: Props) => (
   <ul>
-    {items.map((item) => (
-      <li key={item.id}>
-        <ListItem data={item} />
+    {users.map((user) => (
+      <li key={user.id}>
+        <ListItem data={user} />
       </li>
     ))}
   </ul>

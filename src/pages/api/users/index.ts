@@ -1,13 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sampleUserData } from '../../../utils/sample-data';
+import { getUsers } from '../../../lib/api';
 
-const handler = (_req: NextApiRequest, res: NextApiResponse): void => {
+const handler = async (
+  _req: NextApiRequest,
+  res: NextApiResponse,
+): Promise<any> => {
+  const users = await getUsers();
+
   try {
-    if (!Array.isArray(sampleUserData)) {
+    if (!Array.isArray(users)) {
       throw new Error('Cannot find user data');
     }
 
-    res.status(200).json(sampleUserData);
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ statusCode: 500, message: err.message });
   }

@@ -1,10 +1,25 @@
 import datoCmsRequest from './datocms';
-
+import { User } from '../interfaces';
 import {
   RESPONSIVE_IMAGE_FRAGMENT,
   META_TAGS_FRAGMENT,
   testModule,
 } from './api-fragments';
+
+export async function getUsers(): Promise<User[]> {
+  const query = `
+    query AppQuery {
+      allUsers {
+        id
+        name
+      }
+    }
+  `;
+  const result: Record<string, User[]> = await datoCmsRequest({
+    query,
+  });
+  return result.allUsers;
+}
 
 export async function getSiteMetaTags(): Promise<unknown> {
   const query = `

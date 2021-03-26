@@ -1,18 +1,18 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { FunctionComponent } from 'react';
 
+import { getUsers } from 'lib/api';
 import { User } from '../../interfaces';
-import { sampleUserData } from '../../utils/sample-data';
 import Layout from '../../components/Layout';
 import ListDetail from '../../components/ListDetail';
 
 type Props = {
-  item?: User;
+  user?: User;
   errors?: string;
 };
 
 const StaticPropsDetail: FunctionComponent<null> = ({
-  item,
+  user,
   errors,
 }: Props) => {
   if (errors) {
@@ -26,8 +26,8 @@ const StaticPropsDetail: FunctionComponent<null> = ({
   }
 
   return (
-    <Layout title={`${item ? item.name : 'User Detail'} page`}>
-      {item && <ListDetail item={item} />}
+    <Layout title={`${user ? user.name : 'User Detail'} page`}>
+      {user && <ListDetail user={user} />}
     </Layout>
   );
 };
@@ -36,8 +36,9 @@ export default StaticPropsDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Get the paths we want to pre-render based on users
-  const paths = sampleUserData.map((user: User) => ({
-    params: { id: user.id.toString() },
+  const users = await getUsers();
+  const paths = users.map((user: User) => ({
+    params: { id: user.id },
   }));
 
   // We'll pre-render only these paths at build time.
@@ -51,10 +52,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const id = params?.id;
-    const item = sampleUserData.find((data) => data.id === Number(id));
-    // By returning { props: item }, the StaticPropsDetail component
-    // will receive `item` as a prop at build time
-    return { props: { item } };
+    const users = await getUsers();
+
+    const user = users.find((data) => data.id === id);
+    // By returning { props: user }, the StaticPropsDetail component
+    // will receive `user` as a prop at build time
+    return { props: { user } };
   } catch (err) {
     return { props: { errors: err.message } };
   }
