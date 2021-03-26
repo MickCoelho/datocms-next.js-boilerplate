@@ -6,7 +6,7 @@ import {
   testModule,
 } from './api-fragments';
 
-export async function getSiteMetaTags() {
+export async function getSiteMetaTags(): Promise<unknown> {
   const query = `
     query AppQuery {
       site: _site {
@@ -16,13 +16,13 @@ export async function getSiteMetaTags() {
       }
     }
   `;
-  const result = await datoCmsRequest({
+  const result: Record<string, unknown> = await datoCmsRequest({
     query,
   });
   return result.site;
 }
 
-export async function getAllPagesSlugs() {
+export async function getAllPagesSlugs(): Promise<unknown> {
   const query = `
     {
       allPages {
@@ -32,13 +32,13 @@ export async function getAllPagesSlugs() {
       }
     }
   `;
-  const result = await datoCmsRequest({
+  const result: Record<string, unknown> = await datoCmsRequest({
     query,
   });
   return result.allPages;
 }
 
-export async function getDynamicPageBySlug(slug) {
+export async function getDynamicPageBySlug(slug: string): Promise<unknown> {
   const query = `
     query PagesBySlug($slug: String) {
       allPages(filter: {slug: {eq: $slug}}) {
@@ -54,12 +54,12 @@ export async function getDynamicPageBySlug(slug) {
     }
     ${RESPONSIVE_IMAGE_FRAGMENT}
   `;
-  const result = await datoCmsRequest({
+  const result: Record<string, never> = await datoCmsRequest({
     query,
     variables: { slug },
   });
 
-  const pageData = result.allPages[0];
+  const pageData: Array<never> = result.allPages;
 
-  return pageData;
+  return pageData[0];
 }

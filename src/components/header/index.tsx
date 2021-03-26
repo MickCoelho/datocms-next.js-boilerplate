@@ -1,8 +1,7 @@
-import { FunctionComponent } from 'react';
-
+import React, { VoidFunctionComponent } from 'react';
 import Link from 'next/link';
 
-const Header: FunctionComponent<null> = () => (
+const Header: VoidFunctionComponent = () => (
   <>
     <header>
       <nav>

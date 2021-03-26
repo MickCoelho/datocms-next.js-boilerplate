@@ -5,19 +5,15 @@ const { DATOCMS_API_TOKEN } = process.env;
 
 interface iDatoCMSRequest {
   query: string;
-  variables: number;
+  variables?: Record<string, unknown>;
   preview?: boolean;
-}
-
-interface iDatoCMSResult {
-  result: unknown;
 }
 
 const datoCmsRequest = ({
   query,
   variables,
   preview,
-}: iDatoCMSRequest): Promise<iDatoCMSResult> => {
+}: iDatoCMSRequest): Promise<Record<string, never>> => {
   if (!API_URL) {
     throw new Error(
       'Unexpected error: Missing API_URL in environment variable',

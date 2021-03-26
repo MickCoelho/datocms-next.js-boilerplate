@@ -1,6 +1,6 @@
-import { FunctionComponent } from 'react';
+import { VoidFunctionComponent } from 'react';
 
-const Footer: FunctionComponent<null> = () => (
+const Footer: VoidFunctionComponent = () => (
   <>
     <footer>
       <hr />
