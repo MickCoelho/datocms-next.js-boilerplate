@@ -1,17 +1,17 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { FunctionComponent } from 'react';
 
-import { getAllPagesSlugs } from 'lib/api';
+import { getAllPagesSlugs, getDynamicPageBySlug } from 'lib/api';
 import { CMSPage } from '../../interfaces';
 import Layout from '../../components/Layout';
 
 type Props = {
-  page?: CMSPage;
+  pageData?: CMSPage;
   errors?: string;
 };
 
 const StaticPropsDetail: FunctionComponent<null> = ({
-  page,
+  pageData,
   errors,
 }: Props) => {
   if (errors) {
@@ -25,8 +25,8 @@ const StaticPropsDetail: FunctionComponent<null> = ({
   }
 
   return (
-    <Layout title={`${page ? page.name : ''} page`}>
-      {page && <div>Page name: {page.name}</div>}
+    <Layout title={`${pageData ? pageData.name : ''} page`}>
+      {pageData && <div>Page name: {pageData.name}</div>}
     </Layout>
   );
 };
@@ -34,29 +34,35 @@ const StaticPropsDetail: FunctionComponent<null> = ({
 export default StaticPropsDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Get the paths we want to pre-render based on users
-  const pages = await getAllPagesSlugs();
-  const paths = pages.map((user: CMSPage) => ({
-    params: { slug: user.slug },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  const allPages = await getAllPagesSlugs();
+  const formattedPages =
+    allPages?.map((page) => ({
+      params: { slug: [page.slug] },
+    })) || [];
+  return {
+    paths: [...formattedPages],
+    fallback: false,
+  };
 };
 
 // This function gets called at build time on server-side.
 // It won't be called on client-side, so you can even do
 // direct database queries.
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   try {
-    const slug = params?.slug;
-    const pages = await getAllPagesSlugs();
+    const pageSlug = params?.slug ? params?.slug[0] : '';
+    const pageData = await getDynamicPageBySlug(pageSlug, preview);
 
-    const page = pages.find((data) => data.slug === slug);
     // By returning { props: page }, the StaticPropsDetail component
     // will receive `page` as a prop at build time
-    return { props: { page } };
+    return {
+      props: {
+        pageData,
+      },
+    };
   } catch (err) {
     return { props: { errors: err.message } };
   }
