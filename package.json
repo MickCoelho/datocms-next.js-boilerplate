@@ -15,10 +15,8 @@
     "pre-commit": "lint-staged",
     "postinstall": "husky install"
   },
-  "peerDependencies": {
-    "graphql": "^15.5.0"
-  },
   "dependencies": {
+    "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "next": "latest",
     "react": "^17.0.1",
