@@ -14,6 +14,7 @@
 - [ ] Atomic design approach (via DatoCMS)
 - [ ] Preview mode (draft/published models)
 - [ ] Internationalization
+- [ ] PostCSS/CSS modules
 - [ ] ...
 ## How to use
 ### Duplicate DatoCMS template
