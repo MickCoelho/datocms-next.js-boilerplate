@@ -1,6 +1,5 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import Head from 'next/head';
-import Header from './header';
 import Footer from './footer';
 
 type Props = {
@@ -18,7 +17,6 @@ const Layout: FunctionComponent<Props> = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <Header />
     {children}
     <Footer />
   </div>

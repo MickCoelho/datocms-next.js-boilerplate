@@ -1,5 +1,5 @@
 import datoCmsRequest from './datocms';
-import { User } from '../interfaces';
+import { CMSPage, User } from '../interfaces';
 import {
   RESPONSIVE_IMAGE_FRAGMENT,
   META_TAGS_FRAGMENT,
@@ -37,17 +37,38 @@ export async function getSiteMetaTags(): Promise<unknown> {
   return result.site;
 }
 
-export async function getAllPagesSlugs(): Promise<unknown> {
+export async function getGlobalData(): Promise<any> {
+  const query = `
+  {
+    global {
+      mainNavigation {
+        ... on PageRecord {
+          type: _modelApiKey
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+  `;
+  const result: any = await datoCmsRequest({
+    query,
+  });
+  return result.global;
+}
+
+export async function getAllPagesSlugs(): Promise<CMSPage[]> {
   const query = `
     {
       allPages {
         id
         slug
-        title
+        name
       }
     }
   `;
-  const result: Record<string, unknown> = await datoCmsRequest({
+  const result: Record<string, CMSPage[]> = await datoCmsRequest({
     query,
   });
   return result.allPages;

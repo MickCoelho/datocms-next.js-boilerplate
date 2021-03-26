@@ -8,3 +8,14 @@ export type User = {
   id: string;
   name: string;
 };
+
+export type CMSPage = {
+  id: string;
+  name: string;
+  slug: string;
+  type?: string;
+};
+
+export type CMSApp = {
+  mainNavigation: CMSPage[];
+};
