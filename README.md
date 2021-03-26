@@ -10,7 +10,10 @@
 - PostCSS/CSS Modules
 ## Features
 - [x] Type check & eslint on commit
+- [x] Dynamic page creation (via DatoCMS)
 - [ ] Atomic design approach (via DatoCMS)
+- [ ] Preview mode (draft/published models)
+- [ ] Internationalization
 - [ ] ...
 ## How to use
 ### Duplicate DatoCMS template
