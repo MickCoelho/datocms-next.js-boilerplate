@@ -1,4 +1,6 @@
-const Footer = () => (
+import { FunctionComponent } from 'react';
+
+const Footer: FunctionComponent<null> = () => (
   <>
     <footer>
       <hr />
