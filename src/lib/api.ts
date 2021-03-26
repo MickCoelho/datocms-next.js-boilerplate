@@ -74,25 +74,26 @@ export async function getAllPagesSlugs(): Promise<CMSPage[]> {
   return result.allPages;
 }
 
-export async function getDynamicPageBySlug(slug: string): Promise<unknown> {
+export async function getDynamicPageBySlug(
+  slug: string,
+  preview: boolean,
+): Promise<unknown> {
   const query = `
     query PagesBySlug($slug: String) {
       allPages(filter: {slug: {eq: $slug}}) {
         id
         slug
+        name
         seo: _seoMetaTags {
           ${META_TAGS_FRAGMENT}
         }
-        modules {
-          ${testModule}
-        }
       }
     }
-    ${RESPONSIVE_IMAGE_FRAGMENT}
   `;
   const result: Record<string, never> = await datoCmsRequest({
     query,
     variables: { slug },
+    preview,
   });
 
   const pageData: Array<never> = result.allPages;

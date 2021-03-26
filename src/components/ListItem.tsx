@@ -1,7 +1,5 @@
 import { FunctionComponent } from 'react';
 
-import Link from 'next/link';
-
 import { User } from '../interfaces';
 
 type Props = {
@@ -9,11 +7,9 @@ type Props = {
 };
 
 const ListItem: FunctionComponent<Props> = ({ data }: Props) => (
-  <Link href={`/users/${data.id}`}>
-    <a>
-      {data.id}: {data.name}
-    </a>
-  </Link>
+  <div>
+    {data.id}: {data.name}
+  </div>
 );
 
 export default ListItem;
