@@ -7,7 +7,7 @@
 - React
 - Redux/rematch
 - GraphQL
-- PostCSS/CSS Modules## How to use
+- PostCSS/CSS Modules
 ## Features
 - [x] Type check & eslint on commit
 - [ ] Atomic design approach (via DatoCMS)

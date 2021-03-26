@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
+import { FunctionComponent } from 'react';
 
 import { User } from '../../interfaces';
 import { sampleUserData } from '../../utils/sample-data';
@@ -10,7 +11,10 @@ type Props = {
   errors?: string;
 };
 
-const StaticPropsDetail = ({ item, errors }: Props) => {
+const StaticPropsDetail: FunctionComponent<null> = ({
+  item,
+  errors,
+}: Props) => {
   if (errors) {
     return (
       <Layout title="Error">

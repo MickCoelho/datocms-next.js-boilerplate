@@ -1,6 +1,7 @@
+import React, { VoidFunctionComponent } from 'react';
 import Link from 'next/link';
 
-const Header = () => (
+const Header: VoidFunctionComponent = () => (
   <>
     <header>
       <nav>

@@ -1,4 +1,6 @@
-const Footer = () => (
+import { VoidFunctionComponent } from 'react';
+
+const Footer: VoidFunctionComponent = () => (
   <>
     <footer>
       <hr />

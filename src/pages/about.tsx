@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 
 const AboutPage: NextPage = () => {
-  const mick = 'ok';
   return (
     <Layout title="About Page">
       <h1>About</h1>

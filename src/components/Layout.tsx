@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, FunctionComponent } from 'react';
 import Head from 'next/head';
 import Header from './header';
 import Footer from './footer';
@@ -8,7 +8,10 @@ type Props = {
   title?: string;
 };
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
+const Layout: FunctionComponent<Props> = ({
+  children,
+  title = 'This is the default title',
+}: Props) => (
   <div>
     <Head>
       <title>{title}</title>
