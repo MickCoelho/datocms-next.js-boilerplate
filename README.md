@@ -59,8 +59,8 @@ npm run start
 **SSG only**
 ...
 
-### Pages logic
-#### Dynamic pages
+## Pages logic
+### Dynamic pages
 **Definition:**
 ...
 
@@ -71,16 +71,16 @@ The `getStaticPaths` method allows for Next.js to generate all the routes when r
 `getStaticProps` method queries all the data required for the page to be built. Note that when statically generated
 (using `npm run export`), `getStaticProps` method isn't called anymore, instead, all the data is attached to the page as
 a json file (but you don't need to worry about this).
-#### Static pages
+### Static pages
 **Definition:**
 ...
 
 To prevent conflicts with the dynamic pages, all the static pages should be location inside the `src/pages/static/` directory. 
-### SEO and OG tags
+## SEO and OG tags
 
 Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have global SEO & OG tags for the website, but also to specifically define some per page.
 
 
-### Known issues
+## Known issues
 
 - [postcss-nested](https://github.com/postcss/postcss-nested/issues/110) As a temprory fix, avoid nesting too much selectors
