@@ -51,16 +51,18 @@ npm run dev
 ```
 
 ### 7. Build the website
-#### SSG/SSR hybrid
+**SSG/SSR hybrid**
 ```bash
 npm run build
 npm run start
 ```
-#### SSG only
+**SSG only**
 ...
 
 ### Pages logic
 #### Dynamic pages
+**Definition:**
+...
 
 To allow for dynamic pages created by the CMS, most of the dynamic pages' logic will be located in the
 `./src/pages/[[...slug]].js` file.
@@ -70,7 +72,10 @@ The `getStaticPaths` method allows for Next.js to generate all the routes when r
 (using `npm run export`), `getStaticProps` method isn't called anymore, instead, all the data is attached to the page as
 a json file (but you don't need to worry about this).
 #### Static pages
+**Definition:**
 ...
+
+To prevent conflicts with the dynamic pages, all the static pages should be location inside the `src/pages/static/` directory. 
 ### SEO and OG tags
 
 Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have global SEO & OG tags for the website, but also to specifically define some per page.
