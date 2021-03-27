@@ -7,8 +7,6 @@ type Props = {
 };
 
 const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
-  console.log('route.slug: ', mainNavigation);
-
   return (
     <>
       <header>
@@ -18,22 +16,6 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
               <a>{route.name}</a>
             </Link>
           ))}
-          {/* <Link href="/">
-            <a>Home</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/about">
-            <a>About</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/users-ssg">
-            <a>Users List SSG</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/users-ssr">
-            <a>Users List SSR</a>
-          </Link>{' '}
-          | <a href="/api/users">Users API</a> */}
         </nav>
       </header>
     </>
