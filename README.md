@@ -17,18 +17,18 @@
 - [ ] PostCSS/CSS modules
 - [ ] ...
 ## How to use
-### Duplicate DatoCMS template
+### 1. Duplicate DatoCMS template
 ...
 
-### Create a Dynamic Page 
+### 2. Create a Dynamic Page 
 ...
 
-### Create a Static Page 
+### 3. Create a Static Page 
 ...
 
-### Add modules to Pages
+### 4. Add modules to Pages
 ...
-### Set up environment variables
+### 5. Set up environment variables
 
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
 
@@ -43,14 +43,14 @@ DATOCMS_API_TOKEN=...
 API_URL=https://graphql.datocms.com/
 ```
 
-### Run Next.js in development mode
+### 6. Run Next.js in development mode
 
 ```bash
 npm install
 npm run dev
 ```
 
-### Build the website
+### 7. Build the website
 #### SSG/SSR hybrid
 ```bash
 npm run build
