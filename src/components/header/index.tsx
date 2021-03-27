@@ -7,12 +7,14 @@ type Props = {
 };
 
 const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
+  console.log('route.slug: ', mainNavigation);
+
   return (
     <>
       <header>
         <nav>
           {mainNavigation.map((route, i) => (
-            <Link key={route.slug} href={route.slug}>
+            <Link key={route.slug} href={`/${route.slug}`}>
               <a>{route.name}</a>
             </Link>
           ))}
