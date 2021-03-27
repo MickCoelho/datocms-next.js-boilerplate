@@ -20,7 +20,10 @@
 ### Duplicate DatoCMS template
 ...
 
-### Create a Page 
+### Create a Dynamic Page 
+...
+
+### Create a Static Page 
 ...
 
 ### Add modules to Pages
