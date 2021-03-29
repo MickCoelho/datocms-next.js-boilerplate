@@ -1,37 +1,57 @@
 import { NextPage, GetServerSideProps } from 'next';
-import Link from 'next/link';
 
-import { getUsers } from 'lib/api';
-import { User } from '../../../interfaces';
-import Layout from '../../../components/Layout';
-import List from '../../../components/List';
+import { getDynamicPageBySlug, getSiteMetaTags, getUsers } from 'lib/api';
+import { User, CMSPage, CMSSite } from '../../../interfaces';
+
+import PageLayout from '../../../components/page-layout';
 
 type Props = {
+  siteData: CMSSite;
+  pageData: CMSPage;
   users: User[];
 };
 
-const Users: NextPage<Props> = ({ users }: Props) => (
-  <Layout title="Users List page">
-    <h1>Users List</h1>
-    <p>
-      Example fetching data from inside <code>getServerSideProps()</code>.
-    </p>
-    <p>You are currently on: /users</p>
-    <List users={users} />
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </Layout>
-);
+const Users: NextPage<Props> = ({ siteData, pageData, users }: Props) => {
+  const metaTags = pageData.seo.concat(siteData.siteMetaTags.favicon);
+  return (
+    <PageLayout metaTags={metaTags}>
+      {pageData && (
+        <>
+          <h1>Page name: {pageData.name}</h1>
+          <h2>
+            Page slug: <code>/{pageData.slug}</code>
+          </h2>
+          <p>
+            Example fetching data from inside <code>getServerSideProps()</code>.
+          </p>
+          <ul>
+            {users.map((user) => (
+              <li key={user.id}>
+                {user.id}: {user.name}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </PageLayout>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // Example for including static props in a Next.js function component page.
-  // Don't forget to include the respective types for any props passed into
-  // the component.
+  const siteMetaTags = await getSiteMetaTags();
+
+  const pageData = await getDynamicPageBySlug('static/users-ssr', false);
+
   const users: User[] = await getUsers();
-  return { props: { users } };
+  return {
+    props: {
+      siteData: {
+        siteMetaTags,
+      },
+      users,
+      pageData,
+    },
+  };
 };
 
 export default Users;

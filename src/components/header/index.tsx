@@ -11,12 +11,19 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
     <>
       <header>
         <nav>
-          {mainNavigation.map((route, i) => (
+          {mainNavigation.map((route) => (
             <Link key={route.slug} href={`/${route.slug}`}>
-              <a>{route.name}</a>
+              <a
+                style={{
+                  marginRight: '10px',
+                }}
+              >
+                {route.name}
+              </a>
             </Link>
           ))}
         </nav>
+        <hr />
       </header>
     </>
   );

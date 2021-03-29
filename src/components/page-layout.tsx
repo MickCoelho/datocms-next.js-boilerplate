@@ -1,22 +1,22 @@
 import React, { ReactNode, FunctionComponent } from 'react';
+import { renderMetaTags, SeoMetaTagType } from 'react-datocms';
 import Head from 'next/head';
 import Footer from './footer';
 
 type Props = {
-  children?: ReactNode;
   title?: string;
+  metaTags?: SeoMetaTagType[];
+  children?: ReactNode;
 };
 
 const Layout: FunctionComponent<Props> = ({
   children,
-  title = 'This is the default title',
+  metaTags,
+  title,
 }: Props) => (
   <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+    {metaTags && <Head>{renderMetaTags(metaTags)}</Head>}
+    {title && <title>{title}</title>}
     {children}
     <Footer />
   </div>
