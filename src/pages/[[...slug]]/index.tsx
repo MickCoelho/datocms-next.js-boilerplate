@@ -1,31 +1,39 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { FunctionComponent } from 'react';
 
-import { getAllPagesSlugs, getDynamicPageBySlug } from 'lib/api';
-import { CMSPage } from '../../interfaces';
-import Layout from '../../components/layout';
+import {
+  getAllPagesSlugs,
+  getSiteMetaTags,
+  getDynamicPageBySlug,
+} from 'lib/api';
+import { CMSSite, CMSPage } from '../../interfaces';
+import PageLayout from '../../components/page-layout';
 
 type Props = {
+  siteData: CMSSite;
   pageData?: CMSPage;
   errors?: string;
 };
 
-const StaticPropsDetail: FunctionComponent<null> = ({
+const DynamicPage: FunctionComponent<null> = ({
+  siteData,
   pageData,
   errors,
 }: Props) => {
-  if (errors) {
+  if (errors || !pageData) {
     return (
-      <Layout title="Error">
+      <PageLayout title="Error">
         <p>
           <span style={{ color: 'red' }}>Error:</span> {errors}
         </p>
-      </Layout>
+      </PageLayout>
     );
   }
 
+  const metaTags = pageData.seo.concat(siteData.siteMetaTags.favicon);
+
   return (
-    <Layout title={`${pageData ? pageData.name : ''} page`}>
+    <PageLayout metaTags={metaTags}>
       {pageData && (
         <>
           <h1>Page name: {pageData.name}</h1>
@@ -34,11 +42,11 @@ const StaticPropsDetail: FunctionComponent<null> = ({
           </h2>
         </>
       )}
-    </Layout>
+    </PageLayout>
   );
 };
 
-export default StaticPropsDetail;
+export default DynamicPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPages = await getAllPagesSlugs();
@@ -60,6 +68,8 @@ export const getStaticProps: GetStaticProps = async ({
   preview = false,
 }) => {
   try {
+    const siteMetaTags = await getSiteMetaTags();
+
     const pageSlug = params?.slug ? params?.slug[0] : '';
     const pageData = await getDynamicPageBySlug(pageSlug, preview);
 
@@ -67,6 +77,9 @@ export const getStaticProps: GetStaticProps = async ({
     // will receive `page` as a prop at build time
     return {
       props: {
+        siteData: {
+          siteMetaTags,
+        },
         pageData,
       },
     };

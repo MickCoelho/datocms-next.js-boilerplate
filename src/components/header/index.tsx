@@ -10,15 +10,16 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
   return (
     <>
       <header>
-        <nav
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
+        <nav>
           {mainNavigation.map((route) => (
             <Link key={route.slug} href={`/${route.slug}`}>
-              <a>{route.name}</a>
+              <a
+                style={{
+                  marginRight: '10px',
+                }}
+              >
+                {route.name}
+              </a>
             </Link>
           ))}
         </nav>

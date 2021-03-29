@@ -4,9 +4,15 @@
 //
 // import { User } from 'path/to/interfaces';
 
+import { SeoMetaTagType } from 'react-datocms';
+
 export type User = {
   id: string;
   name: string;
+};
+
+export type CMSSite = {
+  siteMetaTags: Record<string, SeoMetaTagType[]>;
 };
 
 export type CMSPage = {
@@ -14,6 +20,7 @@ export type CMSPage = {
   name: string;
   slug: string;
   type?: string;
+  seo: SeoMetaTagType[];
 };
 
 export type CMSApp = {
