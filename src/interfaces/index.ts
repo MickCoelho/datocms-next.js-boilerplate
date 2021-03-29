@@ -15,12 +15,18 @@ export type CMSSite = {
   siteMetaTags: Record<string, SeoMetaTagType[]>;
 };
 
+export type CMSModule = {
+  id: string;
+  type: string;
+};
+
 export type CMSPage = {
   id: string;
   name: string;
   slug: string;
   type?: string;
   seo: SeoMetaTagType[];
+  modules: CMSModule[];
 };
 
 export type CMSApp = {
