@@ -6,8 +6,9 @@ import {
   getSiteMetaTags,
   getDynamicPageBySlug,
 } from 'lib/api';
-import { CMSSite, CMSPage, CMSModule } from '../../interfaces';
+import { CMSSite, CMSPage } from '../../interfaces';
 import PageLayout from '../../components/page-layout';
+import ModulesContainer from '../../components/modules-container';
 
 type Props = {
   siteData: CMSSite;
@@ -41,8 +42,9 @@ const DynamicPage: FunctionComponent<null> = ({
             Page slug: <code>/{pageData.slug}</code>
           </h2>
           <div>
-            {pageData?.modules.map((module: CMSModule) => (
-              <pre key={module.id}>{module.type}</pre>
+            Modules:
+            {pageData?.modules.map((module) => (
+              <ModulesContainer key={module.id} {...module} />
             ))}
           </div>
         </>

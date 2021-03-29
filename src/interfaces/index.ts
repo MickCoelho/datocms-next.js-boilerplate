@@ -4,7 +4,11 @@
 //
 // import { User } from 'path/to/interfaces';
 
-import { SeoMetaTagType } from 'react-datocms';
+import {
+  ResponsiveImageType,
+  SeoMetaTagType,
+  StructuredTextDocument,
+} from 'react-datocms';
 
 export type User = {
   id: string;
@@ -15,10 +19,21 @@ export type CMSSite = {
   siteMetaTags: Record<string, SeoMetaTagType[]>;
 };
 
-export type CMSModule = {
+export type CMSModuleBase = {
   id: string;
   type: string;
 };
+export interface CMSModuleExample1 extends CMSModuleBase {
+  headline: string;
+  image: Record<string, ResponsiveImageType>;
+}
+export interface CMSModuleExample2 extends CMSModuleBase {
+  ctaLabel: string;
+  ctaUrl: string;
+}
+export interface CMSModuleExample3 extends CMSModuleBase {
+  content: StructuredTextDocument | null | undefined;
+}
 
 export type CMSPage = {
   id: string;
@@ -26,7 +41,7 @@ export type CMSPage = {
   slug: string;
   type?: string;
   seo: SeoMetaTagType[];
-  modules: CMSModule[];
+  modules: CMSModuleBase[];
 };
 
 export type CMSApp = {
