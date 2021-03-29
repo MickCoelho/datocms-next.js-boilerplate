@@ -10,13 +10,19 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
   return (
     <>
       <header>
-        <nav>
-          {mainNavigation.map((route, i) => (
+        <nav
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {mainNavigation.map((route) => (
             <Link key={route.slug} href={`/${route.slug}`}>
               <a>{route.name}</a>
             </Link>
           ))}
         </nav>
+        <hr />
       </header>
     </>
   );

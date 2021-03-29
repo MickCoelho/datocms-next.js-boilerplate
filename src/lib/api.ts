@@ -3,7 +3,9 @@ import { CMSPage, User } from '../interfaces';
 import {
   RESPONSIVE_IMAGE_FRAGMENT,
   META_TAGS_FRAGMENT,
-  testModule,
+  moduleExample1Fragment,
+  moduleExample2Fragment,
+  moduleExample3Fragment,
 } from './api-fragments';
 
 export async function getUsers(): Promise<User[]> {
@@ -87,8 +89,14 @@ export async function getDynamicPageBySlug(
         seo: _seoMetaTags {
           ${META_TAGS_FRAGMENT}
         }
+        modules {
+          ${moduleExample1Fragment}
+          ${moduleExample2Fragment}
+          ${moduleExample3Fragment}
+        }
       }
     }
+    ${RESPONSIVE_IMAGE_FRAGMENT}
   `;
   const result: Record<string, never> = await datoCmsRequest({
     query,

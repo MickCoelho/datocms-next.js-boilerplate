@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 
 import { getAllPagesSlugs, getDynamicPageBySlug } from 'lib/api';
 import { CMSPage } from '../../interfaces';
-import Layout from '../../components/Layout';
+import Layout from '../../components/layout';
 
 type Props = {
   pageData?: CMSPage;
@@ -26,7 +26,14 @@ const StaticPropsDetail: FunctionComponent<null> = ({
 
   return (
     <Layout title={`${pageData ? pageData.name : ''} page`}>
-      {pageData && <div>Page name: {pageData.name}</div>}
+      {pageData && (
+        <>
+          <h1>Page name: {pageData.name}</h1>
+          <h2>
+            Page slug: <code>/{pageData.slug}</code>
+          </h2>
+        </>
+      )}
     </Layout>
   );
 };
