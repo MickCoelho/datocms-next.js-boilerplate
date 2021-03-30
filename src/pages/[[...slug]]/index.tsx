@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
+import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 
 import {
@@ -55,14 +56,21 @@ const DynamicPage: FunctionComponent<null> = ({
 
 export default DynamicPage;
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const allPages = await getAllPagesSlugs();
-  const formattedPages =
-    allPages?.map((page) => ({
-      params: { slug: [page.slug] },
-    })) || [];
+  const localizedPages: any = [];
+  locales?.forEach((locale) => {
+    const formattedPages =
+      allPages?.map((page) => ({
+        params: { slug: [page.slug], locale },
+      })) || [];
+    localizedPages.push(...formattedPages);
+  });
+
+  console.log(localizedPages);
+
   return {
-    paths: [...formattedPages],
+    paths: localizedPages,
     fallback: false,
   };
 };
