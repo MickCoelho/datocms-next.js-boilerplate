@@ -55,15 +55,20 @@ const DynamicPage: FunctionComponent<null> = ({
 
 export default DynamicPage;
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const allPages = await getAllPagesSlugs();
-  const formattedPages =
-    allPages?.map((page) => ({
-      params: { slug: [page.slug] },
-    })) || [];
+  const localizedPages: any = [];
+  locales?.forEach((locale) => {
+    const formattedPages =
+      allPages?.map((page) => ({
+        params: { slug: [page.slug], locale },
+      })) || [];
+    localizedPages.push(...formattedPages);
+  });
+
   return {
-    paths: [...formattedPages],
-    fallback: false,
+    paths: localizedPages,
+    fallback: true,
   };
 };
 
@@ -72,13 +77,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // direct database queries.
 export const getStaticProps: GetStaticProps = async ({
   params,
+  locale,
   preview = false,
 }) => {
   try {
     const siteMetaTags = await getSiteMetaTags();
 
     const pageSlug = params?.slug ? params?.slug[0] : '';
-    const pageData = await getDynamicPageBySlug(pageSlug, preview);
+    const pageData = await getDynamicPageBySlug(pageSlug, preview, locale);
 
     // By returning { props: page }, the StaticPropsDetail component
     // will receive `page` as a prop at build time

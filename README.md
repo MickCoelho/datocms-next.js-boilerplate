@@ -76,6 +76,10 @@ a json file (but you don't need to worry about this).
 ...
 
 To prevent conflicts with the dynamic pages, all the static pages should be location inside the `/src/pages/static/` directory. 
+## i18n
+### DatoCMS
+### Next config
+
 ## SEO and OG tags
 
 Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have global SEO & OG tags for the website, but also to specifically define some per page.

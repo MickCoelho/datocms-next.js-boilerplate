@@ -79,10 +79,11 @@ export async function getAllPagesSlugs(): Promise<CMSPage[]> {
 export async function getDynamicPageBySlug(
   slug: string,
   preview: boolean,
+  locale = 'en',
 ): Promise<unknown> {
   const query = `
-    query PagesBySlug($slug: String) {
-      allPages(filter: {slug: {eq: $slug}}) {
+    query PagesBySlug($slug: String, $locale: SiteLocale) {
+      allPages(locale: $locale, filter: {slug: {eq: $slug}}) {
         id
         slug
         name
@@ -100,7 +101,7 @@ export async function getDynamicPageBySlug(
   `;
   const result: Record<string, never> = await datoCmsRequest({
     query,
-    variables: { slug },
+    variables: { slug, locale },
     preview,
   });
 
