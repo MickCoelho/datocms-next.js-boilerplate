@@ -1,5 +1,4 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 
 import {
@@ -67,11 +66,9 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     localizedPages.push(...formattedPages);
   });
 
-  console.log(localizedPages);
-
   return {
     paths: localizedPages,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -80,13 +77,14 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 // direct database queries.
 export const getStaticProps: GetStaticProps = async ({
   params,
+  locale,
   preview = false,
 }) => {
   try {
     const siteMetaTags = await getSiteMetaTags();
 
     const pageSlug = params?.slug ? params?.slug[0] : '';
-    const pageData = await getDynamicPageBySlug(pageSlug, preview);
+    const pageData = await getDynamicPageBySlug(pageSlug, preview, locale);
 
     // By returning { props: page }, the StaticPropsDetail component
     // will receive `page` as a prop at build time
