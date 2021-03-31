@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
 import { CMSApp } from '../interfaces/index';
 import Header from '../components/header';
 import { getGlobalData } from '../lib/api';
@@ -26,8 +26,8 @@ const App = ({ Component, pageProps, appProps }: Props) => {
   );
 };
 
-App.getInitialProps = async () => {
-  const appProps = await getGlobalData();
+App.getInitialProps = async (ctx: AppContext) => {
+  const appProps = await getGlobalData(ctx.router.isPreview, ctx.router.locale);
   return {
     appProps,
   };
