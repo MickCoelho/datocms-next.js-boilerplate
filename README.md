@@ -11,9 +11,9 @@
 ## Features
 - [x] Type check & eslint on commit
 - [x] Dynamic page creation (via DatoCMS)
-- [ ] Atomic design approach (via DatoCMS)
+- [x] Atomic design approach (via DatoCMS)
+- [x] Internationalization
 - [ ] Preview mode (draft/published models)
-- [ ] Internationalization
 - [ ] PostCSS/CSS modules
 - [ ] ...
 ## How to use
@@ -95,5 +95,7 @@ Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have 
 ### Create React component
  
 ## Known issues
-
+### next export
+Due to the i18n implementation, `next export` isn't supported. If Netlify/Vercel aren't a viable solution, the routing logic can still be updated manually in order to manage locales.
+### PostCSS
 - [postcss-nested](https://github.com/postcss/postcss-nested/issues/110) As a temprory fix, avoid nesting too much selectors
