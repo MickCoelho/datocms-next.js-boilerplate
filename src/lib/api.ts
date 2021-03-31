@@ -39,10 +39,13 @@ export async function getSiteMetaTags(): Promise<unknown> {
   return result.site;
 }
 
-export async function getGlobalData(): Promise<any> {
+export async function getGlobalData(
+  preview: boolean,
+  locale = 'en',
+): Promise<any> {
   const query = `
-  {
-    global {
+  query GlobalData($locale: SiteLocale) {
+    global(locale: $locale) {
       mainNavigation {
         ... on PageRecord {
           type: _modelApiKey
@@ -56,7 +59,10 @@ export async function getGlobalData(): Promise<any> {
   `;
   const result: any = await datoCmsRequest({
     query,
+    variables: { locale },
+    preview,
   });
+
   return result.global;
 }
 
