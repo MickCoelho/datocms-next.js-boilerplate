@@ -37,10 +37,17 @@ const Users: NextPage<Props> = ({ siteData, pageData, users }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  preview = false,
+}) => {
   const siteMetaTags = await getSiteMetaTags();
 
-  const pageData = await getDynamicPageBySlug('static/users-ssr', false);
+  const pageData = await getDynamicPageBySlug(
+    'static/users-ssr',
+    preview,
+    locale,
+  );
 
   const users: User[] = await getUsers();
   return {
