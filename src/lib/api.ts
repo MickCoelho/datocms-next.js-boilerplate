@@ -82,14 +82,10 @@ export async function getAllPagesSlugs(): Promise<CMSPage[]> {
   return result.allPages;
 }
 
-export async function getDynamicPageBySlug(
-  slug: string,
-  preview: boolean,
-  locale = 'en',
-): Promise<unknown> {
-  const query = `
-    query PagesBySlug($slug: String, $locale: SiteLocale) {
-      allPages(locale: $locale, filter: {slug: {eq: $slug}}) {
+export function dynamicPageBySlugQuery(): string {
+  return `
+    query PagesBySlug($locale: SiteLocale, $slug: String) {
+      page(locale: $locale, filter: {slug: {eq: $slug}}) {
         id
         slug
         name
@@ -105,13 +101,18 @@ export async function getDynamicPageBySlug(
     }
     ${RESPONSIVE_IMAGE_FRAGMENT}
   `;
+}
+
+export async function getDynamicPageBySlug(
+  slug: string,
+  preview: boolean,
+  locale = 'en',
+): Promise<unknown> {
+  const query = dynamicPageBySlugQuery();
+
   const result: Record<string, never> = await datoCmsRequest({
     query,
-    variables: { slug, locale },
     preview,
   });
-
-  const pageData: Array<never> = result.allPages;
-
-  return pageData[0];
+  return result;
 }

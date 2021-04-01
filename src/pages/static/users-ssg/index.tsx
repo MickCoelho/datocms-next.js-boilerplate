@@ -1,25 +1,53 @@
 import { NextPage, GetStaticProps } from 'next';
+import { useQuerySubscription } from 'react-datocms';
 
-import { getDynamicPageBySlug, getSiteMetaTags, getUsers } from 'lib/api';
+import datoCmsRequest from 'lib/datocms';
+import { getSiteMetaTags, getUsers, dynamicPageBySlugQuery } from 'lib/api';
 
 import { User, CMSPage, CMSSite } from '../../../interfaces';
 import PageLayout from '../../../components/page-layout';
 
 type Props = {
   siteData: CMSSite;
-  pageData: CMSPage;
+  errors?: string;
+  pageSubscription: {
+    enabled: false;
+    initialData?: {
+      page: CMSPage;
+    };
+    data?: {
+      page: CMSPage;
+    };
+  };
   users: User[];
 };
 
-const Users: NextPage<Props> = ({ siteData, pageData, users }: Props) => {
-  const metaTags = pageData.seo.concat(siteData.siteMetaTags.favicon);
+const Users: NextPage<Props> = ({
+  siteData,
+  errors,
+  pageSubscription,
+  users,
+}: Props) => {
+  const { data, error } = useQuerySubscription(pageSubscription);
+
+  if (errors || error || !data) {
+    return (
+      <PageLayout title="Error">
+        <p>
+          <span style={{ color: 'red' }}>Error:</span> {errors}
+        </p>
+      </PageLayout>
+    );
+  }
+
+  const metaTags = data.page.seo.concat(siteData.siteMetaTags.favicon);
   return (
     <PageLayout metaTags={metaTags}>
-      {pageData && (
+      {data && (
         <>
-          <h1>Page name: {pageData.name}</h1>
+          <h1>Page name: {data.page.name}</h1>
           <h2>
-            Page slug: <code>/{pageData.slug}</code>
+            Page slug: <code>/{data.page.slug}</code>
           </h2>
           <p>
             Example fetching data from inside <code>getStaticProps()</code> and
@@ -44,20 +72,34 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   const siteMetaTags = await getSiteMetaTags();
 
-  const pageData = await getDynamicPageBySlug(
-    'static/users-ssg',
+  const pageSlug = 'static/users-ssg';
+  const query = dynamicPageBySlugQuery();
+  const graphqlRequest = {
+    query,
     preview,
-    locale,
-  );
-
+    variables: {
+      slug: pageSlug,
+      locale,
+    },
+  };
   const users: User[] = await getUsers();
+  // prettier-ignore
   return {
     props: {
       siteData: {
         siteMetaTags,
       },
       users,
-      pageData,
+      pageSubscription: preview
+        ? {
+          ...graphqlRequest,
+          initialData: await datoCmsRequest(graphqlRequest),
+          token: process.env.DATOCMS_API_TOKEN,
+        }
+        : {
+          enabled: false,
+          initialData: await datoCmsRequest(graphqlRequest),
+        },
     },
   };
 };
