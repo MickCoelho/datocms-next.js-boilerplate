@@ -47,6 +47,7 @@ API_URL=https://graphql.datocms.com/
 ### 6. Run Next.js in development mode
 
 ```bash
+npm install -g vercel
 npm install
 npm run dev
 ```
