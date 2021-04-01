@@ -11,7 +11,6 @@ install:
     - feature/vercel-cli
   script:
     - npm i -g vercel
-    - npx tsc
     - npm i
 
 test:
