@@ -8,8 +8,6 @@ image: node:latest
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - .npm/
-    - .npm-global/
     - node_modules/
     - .next/
 
