@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 import type { AppContext, AppProps } from 'next/app';
 import { CMSApp } from '../interfaces/index';
 import Header from '../components/header';
@@ -12,6 +14,8 @@ type Props = {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = ({ Component, pageProps, appProps }: Props) => {
+  const router = useRouter();
+
   return (
     <div className="app-container">
       <Head>
@@ -20,6 +24,15 @@ const App = ({ Component, pageProps, appProps }: Props) => {
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         />
       </Head>
+      {router.isPreview && (
+        <div>
+          <p>
+            <b>PREVIEW MODE ENABLED</b>, click{' '}
+            <a href="/api/exit-preview">here</a> to exit
+          </p>
+          <hr />
+        </div>
+      )}
       <Header mainNavigation={appProps.mainNavigation} />
       <Component {...pageProps} appProps={appProps} />
     </div>
