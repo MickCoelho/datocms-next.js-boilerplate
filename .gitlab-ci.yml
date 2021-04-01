@@ -17,6 +17,7 @@ install:
   stage: install
   only:
     - feature/vercel-cli
+    - main
   script:
     - npm ci — cache .npm — prefer-offline
 
@@ -24,6 +25,7 @@ test:
   stage: test
   only:
     - feature/vercel-cli
+    - main
   script:
     - npm run type-check
     - npm run lint
@@ -32,6 +34,7 @@ build:
   stage: build
   only:
     - feature/vercel-cli
+    - main
   script:
     - npm run build
 
