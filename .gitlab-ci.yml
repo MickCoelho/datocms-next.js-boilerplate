@@ -1,8 +1,6 @@
-stages:
-  - deploy
-
 deploy:
   stage: deploy
+  image: node:13.10.1-alpine3.10
   environment:
     name: production
     url: https://your.website.com
