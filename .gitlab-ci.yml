@@ -10,7 +10,7 @@ deploy:
     - npm i -g vercel
     - npm i
     - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --env API_URL=$API_URL --env DATOCMS_API_TOKEN=$DATOCMS_API_TOKEN --env DATOCMS_PREVIEW_SECRET=$DATOCMS_PREVIEW_SECRET
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN
 
 deploy-main:
   stage: deploy
@@ -24,4 +24,4 @@ deploy-main:
     - npm i -g vercel
     - npm i
     - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --prod --env API_URL=$API_URL --env DATOCMS_API_TOKEN=$DATOCMS_API_TOKEN --env DATOCMS_PREVIEW_SECRET=$DATOCMS_PREVIEW_SECRET
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --prod
