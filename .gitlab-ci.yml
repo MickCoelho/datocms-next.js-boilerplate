@@ -41,9 +41,6 @@ deploy:
     - feature/vercel-cli
   script:
     - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN
-
-
-deploy:
   stage: deploy-prod
   only:
     - main
