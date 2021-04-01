@@ -1,27 +1,51 @@
-deploy:
-  stage: deploy
-  image: node:13.10.1-alpine3.10
-  environment:
-    name: production
-    url: https://your.website.com
+stages:
+  - install
+  - test
+  - build
+  - deploy
+  - deploy-prod
+image: node:latest
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+    - .npm-global/
+    - node_modules/
+    - .next/
+
+install:
+  stage: install
   only:
     - feature/vercel-cli
   script:
-    - npm i -g vercel
-    - npm i
-    - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN
+    - npm ci — cache .npm — prefer-offline
 
-deploy-main:
+test:
+  stage: test
+  only:
+    - feature/vercel-cli
+  script:
+    - npm run type-check
+    - npm run lint
+
+build:
+  stage: build
+  only:
+    - feature/vercel-cli
+  script:
+    - npm run build
+
+deploy:
   stage: deploy
-  image: node:13.10.1-alpine3.10
-  environment:
-    name: production
-    url: https://your.website.com
+  only:
+    - feature/vercel-cli
+  script:
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN
+
+
+deploy-prod:
+  stage: deploy-prod
   only:
     - main
   script:
-    - npm i -g vercel
-    - npm i
-    - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --prod
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN --prod
