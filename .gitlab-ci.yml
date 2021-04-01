@@ -14,7 +14,7 @@ cache:
 install:
   stage: install
   only:
-    - feature/vercel-cli
+    - development
     - main
   script:
     - npm ci — cache .npm — prefer-offline
@@ -22,7 +22,7 @@ install:
 test:
   stage: test
   only:
-    - feature/vercel-cli
+    - development
     - main
   script:
     - npm run type-check
@@ -31,7 +31,7 @@ test:
 build:
   stage: build
   only:
-    - feature/vercel-cli
+    - development
     - main
   script:
     - npm run build
@@ -39,7 +39,7 @@ build:
 deploy:
   stage: deploy
   only:
-    - feature/vercel-cli
+    - development
   script:
     - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN
 
