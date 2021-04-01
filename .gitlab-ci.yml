@@ -11,3 +11,17 @@ deploy:
     - npm i
     - npm run build
     - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN
+
+deploy-main:
+  stage: deploy
+  image: node:13.10.1-alpine3.10
+  environment:
+    name: production
+    url: https://your.website.com
+  only:
+    - main
+  script:
+    - npm i -g vercel
+    - npm i
+    - npm run build
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --prod
