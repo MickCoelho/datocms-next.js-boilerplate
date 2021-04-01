@@ -1,27 +1,39 @@
-deploy:
-  stage: deploy
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+install:
+  stage: install
   image: node:13.10.1-alpine3.10
-  environment:
-    name: production
-    url: https://your.website.com
   only:
     - feature/vercel-cli
   script:
     - npm i -g vercel
     - npm i
-    - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN
 
-deploy-main:
+test:
+  stage: test
+  image: node:13.10.1-alpine3.10
+  only:
+    - feature/vercel-cli
+  script:
+    - npm run type-check
+    - npm run lint
+
+build:
+  stage: build
+  image: node:13.10.1-alpine3.10
+  only:
+    - feature/vercel-cli
+  script:
+    - npm run build
+
+deploy:
   stage: deploy
   image: node:13.10.1-alpine3.10
-  environment:
-    name: production
-    url: https://your.website.com
   only:
-    - main
+    - feature/vercel-cli
   script:
-    - npm i -g vercel
-    - npm i
-    - npm run build
-    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN --prod
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID vercel --token $VERCEL_TOKEN
