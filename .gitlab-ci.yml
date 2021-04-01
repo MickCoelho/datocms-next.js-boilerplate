@@ -1,22 +1,32 @@
 stages:
   - install
+  - test
   - build
   - deploy
+image: node:latest
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
 
 install:
   stage: install
-  image: node:13.10.1-alpine3.10
   only:
     - feature/vercel-cli
   script:
     - npm i -g vercel
     - npm i
+
+test:
+  stage: test
+  only:
+    - feature/vercel-cli
+  script:
     - npm run type-check
     - npm run lint
 
 build:
   stage: build
-  image: node:13.10.1-alpine3.10
   only:
     - feature/vercel-cli
   script:
@@ -24,7 +34,6 @@ build:
 
 deploy:
   stage: deploy
-  image: node:13.10.1-alpine3.10
   only:
     - feature/vercel-cli
   script:
