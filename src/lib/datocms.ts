@@ -9,7 +9,7 @@ interface iDatoCMSRequest {
   preview?: boolean;
 }
 
-const datoCmsRequest = async ({
+const datoCmsRequest = ({
   query,
   variables,
   preview,
@@ -25,26 +25,6 @@ const datoCmsRequest = async ({
     );
   }
 
-  const res = await fetch(API_URL + (preview ? '/preview' : ''), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${DATOCMS_API_TOKEN}`,
-    },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.error(json.errors);
-    throw new Error('Failed to fetch API');
-  }
-  return json.data;
-
-  /*
   const endpoint: string = preview ? `${API_URL}preview` : API_URL;
 
   const client = new GraphQLClient(endpoint, {
@@ -54,15 +34,7 @@ const datoCmsRequest = async ({
       authorization: `Bearer ${DATOCMS_API_TOKEN}`,
     },
   });
-  console.log(
-    '------------------------------------------------------------------------',
-  );
-
-  console.log('variables: ', variables);
-  console.log('query: ', query);
-
   return client.request(query, variables);
-  */
 };
 
 export default datoCmsRequest;

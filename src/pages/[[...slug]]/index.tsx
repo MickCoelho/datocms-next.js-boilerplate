@@ -37,8 +37,18 @@ const DynamicPage: FunctionComponent<null> = ({
   errors,
   pageSubscription,
 }: Props) => {
+  if (!pageSubscription) {
+    return (
+      <PageLayout title="Error">
+        <p>
+          <span style={{ color: 'red' }}>Error:</span>
+        </p>
+      </PageLayout>
+    );
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, error, status } = useQuerySubscription(pageSubscription);
-  console.log(datoStatusMessage[status]);
 
   if (errors || error || !data) {
     return (
@@ -98,7 +108,6 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   try {
     const siteMetaTags = await getSiteMetaTags();
-    console.log('Preview mode? ', preview);
 
     const pageSlug = params?.slug ? params?.slug[0] : '';
     const query = dynamicPageBySlugQuery();
