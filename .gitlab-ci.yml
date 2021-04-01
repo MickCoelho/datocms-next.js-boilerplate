@@ -3,6 +3,7 @@ stages:
   - test
   - build
   - deploy
+  - deploy-prod
 image: node:latest
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -40,3 +41,11 @@ deploy:
     - feature/vercel-cli
   script:
     - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN
+
+
+deploy:
+  stage: deploy-prod
+  only:
+    - main
+  script:
+    - VERCEL_ORG_ID=$VERCEL_ORG_ID VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID npx vercel --token $VERCEL_TOKEN --prod
