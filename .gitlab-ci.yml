@@ -9,6 +9,7 @@ deploy:
   only:
     - feature/vercel-cli
   script:
+    - npm i -g vercel
     - npm i
     - npm run build
     - VERCEL_ORG_ID=team_GwPgN6nMZuKeMxLvLgM1PRxR VERCEL_PROJECT_ID=prj_bRwJ9jL1j6Q69PnlYdiCGaIGxlUn vercel
