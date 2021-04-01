@@ -4,24 +4,43 @@ import { FunctionComponent } from 'react';
 import {
   getAllPagesSlugs,
   getSiteMetaTags,
-  getDynamicPageBySlug,
+  dynamicPageBySlugQuery,
 } from 'lib/api';
+import { useQuerySubscription } from 'react-datocms';
+import datoCmsRequest from 'lib/datocms';
 import { CMSSite, CMSPage } from '../../interfaces';
 import PageLayout from '../../components/page-layout';
 import ModulesContainer from '../../components/modules-container';
 
 type Props = {
   siteData: CMSSite;
-  pageData?: CMSPage;
   errors?: string;
+  pageSubscription: {
+    enabled: false;
+    initialData?: {
+      page: CMSPage;
+    };
+    data?: {
+      page: CMSPage;
+    };
+  };
+};
+
+const datoStatusMessage = {
+  connecting: 'Connecting to DatoCMS...',
+  connected: 'Connected to DatoCMS, receiving live updates!',
+  closed: 'Connection closed',
 };
 
 const DynamicPage: FunctionComponent<null> = ({
   siteData,
-  pageData,
   errors,
+  pageSubscription,
 }: Props) => {
-  if (errors || !pageData) {
+  const { data, error, status } = useQuerySubscription(pageSubscription);
+  console.log(datoStatusMessage[status]);
+
+  if (errors || error || !data) {
     return (
       <PageLayout title="Error">
         <p>
@@ -31,19 +50,19 @@ const DynamicPage: FunctionComponent<null> = ({
     );
   }
 
-  const metaTags = pageData.seo.concat(siteData.siteMetaTags.favicon);
+  const metaTags = data.page.seo.concat(siteData.siteMetaTags.favicon);
 
   return (
     <PageLayout metaTags={metaTags}>
-      {pageData && (
+      {data && (
         <>
-          <h1>Page name: {pageData.name}</h1>
+          <h1>Page name: {data.page.name}</h1>
           <h2>
-            Page slug: <code>/{pageData.slug}</code>
+            Page slug: <code>/{data.page.slug}</code>
           </h2>
           <div>
             Modules:
-            {pageData?.modules.map((module) => (
+            {data?.page.modules.map((module) => (
               <ModulesContainer key={module.id} {...module} />
             ))}
           </div>
@@ -72,9 +91,6 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   };
 };
 
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
 export const getStaticProps: GetStaticProps = async ({
   params,
   locale,
@@ -84,16 +100,32 @@ export const getStaticProps: GetStaticProps = async ({
     const siteMetaTags = await getSiteMetaTags();
 
     const pageSlug = params?.slug ? params?.slug[0] : '';
-    const pageData = await getDynamicPageBySlug(pageSlug, preview, locale);
+    const query = dynamicPageBySlugQuery();
+    const graphqlRequest = {
+      query,
+      variables: {
+        slug: pageSlug,
+        locale,
+      },
+      preview,
+    };
 
-    // By returning { props: page }, the StaticPropsDetail component
-    // will receive `page` as a prop at build time
+    // prettier-ignore
     return {
       props: {
         siteData: {
           siteMetaTags,
         },
-        pageData,
+        pageSubscription: preview
+          ? {
+            ...graphqlRequest,
+            initialData: await datoCmsRequest(graphqlRequest),
+            token: process.env.DATOCMS_API_TOKEN,
+          }
+          : {
+            enabled: false,
+            initialData: await datoCmsRequest(graphqlRequest),
+          },
       },
     };
   } catch (err) {

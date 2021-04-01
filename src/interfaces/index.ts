@@ -8,6 +8,7 @@ import {
   ResponsiveImageType,
   SeoMetaTagType,
   StructuredTextDocument,
+  ToMetaTagsType,
 } from 'react-datocms';
 
 export type User = {
@@ -46,4 +47,12 @@ export type CMSPage = {
 
 export type CMSApp = {
   mainNavigation: CMSPage[];
+};
+
+export type QueryResponseType = {
+  page: CMSPage;
+};
+
+export type QueryVariables = {
+  first: number;
 };
