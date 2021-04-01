@@ -1,6 +1,5 @@
 stages:
   - install
-  - test
   - build
   - deploy
 
@@ -12,13 +11,6 @@ install:
   script:
     - npm i -g vercel
     - npm i
-
-test:
-  stage: test
-  image: node:13.10.1-alpine3.10
-  only:
-    - feature/vercel-cli
-  script:
     - npm run type-check
     - npm run lint
 
