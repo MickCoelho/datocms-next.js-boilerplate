@@ -98,6 +98,7 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   try {
     const siteMetaTags = await getSiteMetaTags();
+    console.log('Preview mode? ', preview);
 
     const pageSlug = params?.slug ? params?.slug[0] : '';
     const query = dynamicPageBySlugQuery();

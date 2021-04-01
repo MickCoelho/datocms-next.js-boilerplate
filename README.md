@@ -13,7 +13,7 @@
 - [x] Dynamic page creation (via DatoCMS)
 - [x] Atomic design approach (via DatoCMS)
 - [x] Internationalization
-- [ ] Preview mode (draft/published models)
+- [x] Preview mode (draft/published models)
 - [ ] PostCSS/CSS modules
 - [ ] ...
 ## How to use
@@ -40,6 +40,7 @@ Your `.env.local` file should look like this:
 
 ```bash
 DATOCMS_API_TOKEN=...
+DATOCMS_PREVIEW_SECRET=...
 API_URL=https://graphql.datocms.com/
 ```
 
@@ -76,6 +77,19 @@ a json file (but you don't need to worry about this).
 ...
 
 To prevent conflicts with the dynamic pages, all the static pages should be location inside the `/src/pages/static/` directory. 
+
+## Modules logic
+**Definition:**
+...
+### Create a new model 
+
+### Link new module to pages' model
+
+### Create GraphQL query
+
+### Create React component
+
+## Live previews
 ## i18n
 ### DatoCMS
 ### Next config
@@ -85,15 +99,6 @@ To prevent conflicts with the dynamic pages, all the static pages should be loca
 Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have global SEO & OG tags for the website, but also to specifically define some per page.
 
 
-## Modules logic
-### Create a new model 
-
-### Link new module to pages' model
-
-### Create GraphQL query
-
-### Create React component
- 
 ## Known issues
 ### next export
 Due to the i18n implementation, `next export` isn't supported. If Netlify/Vercel aren't a viable solution, the routing logic can still be updated manually in order to manage locales.
