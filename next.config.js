@@ -2,6 +2,9 @@
 const path = require('path');
 
 module.exports = {
+  future: {
+    webpack5: true,
+  },
   i18n: {
     locales: ['en', 'sv'],
     defaultLocale: 'en',
