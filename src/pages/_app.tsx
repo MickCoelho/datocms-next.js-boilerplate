@@ -27,7 +27,7 @@ const App = ({ Component, pageProps, appProps }: Props) => {
       </Head>
       {router.isPreview && (
         <div>
-          <div className={styles.previewBanner}>
+          <div className={styles['preview-banner']}>
             <p>
               <b>PREVIEW MODE ENABLED</b>, click{' '}
               <a href="/api/exit-preview">here</a> to exit
