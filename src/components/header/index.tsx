@@ -11,10 +11,10 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
   return (
     <>
       <header>
-        <nav className={styles.linksWrapper}>
+        <nav className={styles['links-wrapper']}>
           {mainNavigation.map((route) => (
             <Link key={route.slug} href={`/${route.slug}`}>
-              <a className={styles.navigationLink}>{route.name}</a>
+              <a className={styles['navigation-link']}>{route.name}</a>
             </Link>
           ))}
         </nav>
