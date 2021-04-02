@@ -5,6 +5,7 @@ import type { AppContext, AppProps } from 'next/app';
 import { CMSApp } from '../interfaces/index';
 import Header from '../components/header';
 import { getGlobalData } from '../lib/api';
+import styles from './styles.module.css';
 
 type Props = {
   Component: AppProps['Component'];
@@ -26,10 +27,12 @@ const App = ({ Component, pageProps, appProps }: Props) => {
       </Head>
       {router.isPreview && (
         <div>
-          <p>
-            <b>PREVIEW MODE ENABLED</b>, click{' '}
-            <a href="/api/exit-preview">here</a> to exit
-          </p>
+          <div className={styles.previewBanner}>
+            <p>
+              <b>PREVIEW MODE ENABLED</b>, click{' '}
+              <a href="/api/exit-preview">here</a> to exit
+            </p>
+          </div>
           <hr />
         </div>
       )}

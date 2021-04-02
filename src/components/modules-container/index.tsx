@@ -3,6 +3,7 @@ import ModuleExample1 from 'components/modules/module-example-1';
 import ModuleExample2 from 'components/modules/module-example-2';
 import ModuleExample3 from 'components/modules/module-example-3';
 import { CMSModuleBase } from 'interfaces';
+import styles from './styles.module.css';
 
 const ModularComponent: FunctionComponent<CMSModuleBase | undefined> = (
   module,
@@ -22,17 +23,7 @@ const ModularComponent: FunctionComponent<CMSModuleBase | undefined> = (
       component = <div />;
       break;
   }
-  return (
-    <div
-      style={{
-        paddingTop: '80px',
-        paddingBottom: '80px',
-        border: '1px solid rgba(0, 0, 0, 0.2)',
-      }}
-    >
-      {component}
-    </div>
-  );
+  return <div className={styles.container}>{component}</div>;
 };
 
 export default ModularComponent;

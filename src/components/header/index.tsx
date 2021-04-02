@@ -1,6 +1,7 @@
 import React, { VoidFunctionComponent } from 'react';
 import Link from 'next/link';
 import { CMSPage } from 'interfaces';
+import styles from './styles.module.css';
 
 type Props = {
   mainNavigation: CMSPage[];
@@ -10,16 +11,10 @@ const Header: VoidFunctionComponent<Props> = ({ mainNavigation }) => {
   return (
     <>
       <header>
-        <nav>
+        <nav className={styles.linksWrapper}>
           {mainNavigation.map((route) => (
             <Link key={route.slug} href={`/${route.slug}`}>
-              <a
-                style={{
-                  marginRight: '10px',
-                }}
-              >
-                {route.name}
-              </a>
+              <a className={styles.navigationLink}>{route.name}</a>
             </Link>
           ))}
         </nav>
