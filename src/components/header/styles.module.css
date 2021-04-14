@@ -1,0 +1,9 @@
+.links-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation-link {
+  margin-right: 10px;
+}

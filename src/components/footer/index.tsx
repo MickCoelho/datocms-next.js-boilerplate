@@ -1,5 +1,6 @@
 import { useState, VoidFunctionComponent } from 'react';
 import { useRouter } from 'next/router';
+import styles from './styles.module.css';
 
 const Footer: VoidFunctionComponent = () => {
   const router = useRouter();
@@ -13,8 +14,8 @@ const Footer: VoidFunctionComponent = () => {
     <>
       <footer>
         <hr />
-        <span>Footer</span>
-        <div>
+        <div className={styles.container}>
+          <p>Footer</p>
           Change locale:
           <select value={selectedLocale} onChange={onChangeLocale}>
             {locales?.map((currLocale) => {
