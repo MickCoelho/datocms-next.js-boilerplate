@@ -206,7 +206,7 @@ Open DatoCMS' settings and click settings again (yes, another setting button ins
 
 ### Next config
 Edit `next.config.js` file and add (or edit if it already exists) the object `i18n` with all the locales defined like so: 
-```json
+```javascript
 i18n: {
   locales: ['en', 'sv'],
   defaultLocale: 'en',
