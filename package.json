@@ -10,6 +10,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "export": "next build && next export ",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "lint": "eslint --ext js,jsx,ts,tsx ./src --cache --fix",
     "pre-commit": "lint-staged",

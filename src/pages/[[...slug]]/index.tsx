@@ -26,12 +26,6 @@ type Props = {
   };
 };
 
-const datoStatusMessage = {
-  connecting: 'Connecting to DatoCMS...',
-  connected: 'Connected to DatoCMS, receiving live updates!',
-  closed: 'Connection closed',
-};
-
 const DynamicPage: FunctionComponent<null> = ({
   siteData,
   errors,
@@ -48,7 +42,7 @@ const DynamicPage: FunctionComponent<null> = ({
   }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error, status } = useQuerySubscription(pageSubscription);
+  const { data, error } = useQuerySubscription(pageSubscription);
 
   if (errors || error || !data) {
     return (

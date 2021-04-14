@@ -48,30 +48,34 @@ npm run build
 npm run start
 ```
 **SSG only**
-...
+```bash
+npm run export
+```
+Note that both i18n and fallback pages (in /src/pages/[[...slug]]) aren't yet compatible with `next export`. 
 
 ## Pages logic
 ### Dynamic pages
 **Definition:**
-...
+A dynamic pages is mostly handled by DatoCMS and is composed of: 
+ - Name 
+ - Slug
+ - Modules
+The *Name*'s first purpose is to be used to generate the page's title.
+The *Slug* is used to generate a unique URL for the created page.
+Finally, the *Modules* will compose the page itself. You can see modules as an empty component that will be using the content provided in DatoCMS. When first cloning this project, you'll only be able to add a few modules to your page, but you can easily create new ones (see *Modules* section below).
+All dynamic pages will be listed under DatoCMS' *Pages* section.
 
-To allow for dynamic pages created by the CMS, most of the dynamic pages' logic will be located in the
-`/src/pages/[[...slug]].js` file.
-
-The `getStaticPaths` method allows for Next.js to generate all the routes when running `npm run export`, while the
-`getStaticProps` method queries all the data required for the page to be built. Note that when statically generated
-(using `npm run export`), `getStaticProps` method isn't called anymore, instead, all the data is attached to the page as
-a json file (but you don't need to worry about this).
+Most of the dynamic pages' logic will be located in the `/src/pages/[[...slug]].tsx` file.
+The `getStaticPaths` method allows for Next.js to generate all the routes when running `npm run build`, while the
+`getStaticProps` method queries all the data required for the page to be built. The rest of this function component will simply create the page squeleton and inject the created modules into it. 
 ### Static pages
 **Definition:**
-...
+There are occurences when you won't want a modules based page (e.g. a custom page layout that isn't used anywhere else on the website). You can simply create an empty page using DatoCMS and give it a *slug* that starts with `/static/` followed by whatever folder you want to target in your Next.js project. To prevent conflicts with the dynamic pages, all the static pages should be location inside the `/src/pages/static/` directory. 
 
-To prevent conflicts with the dynamic pages, all the static pages should be location inside the `/src/pages/static/` directory. 
-
-## Modules logic
+## Modules
 **Definition:**
 ...
-### Create a new model 
+### Create a new CMS model 
 
 ### Link new module to pages' model
 
