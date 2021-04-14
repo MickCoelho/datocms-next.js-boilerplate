@@ -18,22 +18,24 @@
 ### 1. Clone DatoCMS Project
 [![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg)](https://dashboard.datocms.com/clone?projectId=45226&name=B-Reel+Next.js%2FDatoCMS+boilerplate)
 ### 2. Set up environment variables
-
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
 
 ```bash
 cp .env.local.example .env.local
 ```
 
-Your `.env.local` file should look like this:
+Then set each variable on `.env`:
+- `DATOCMS_API_TOKEN` should be the API token you just copied.
+- `DATOCMS_PREVIEW_SECRET` can be any random string (but avoid spaces), like `MY_SECRET` - this is used for the Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode).
 
+Your `.env.local` file should look like this:
 ```bash
 DATOCMS_API_TOKEN=...
 DATOCMS_PREVIEW_SECRET=...
 API_URL=https://graphql.datocms.com/
 ```
 
-### 3. Run Next.js in development mode
+### 3. Install and run the project locally
 
 ```bash
 npm install -g vercel
@@ -41,7 +43,7 @@ npm install
 npm run dev
 ```
 
-### 4. Build the website
+### 4. Build the project
 **SSG/SSR hybrid**
 ```bash
 npm run build
@@ -90,7 +92,7 @@ There are occurences when you won't want a modules based page (e.g. a custom pag
 
 ## SEO and OG tags
 
-Both SEO and OG tags are directly managed via DatoCMS. It allow for you to have global SEO & OG tags for the website, but also to specifically define some per page.
+Both SEO and OG tags are directly managed via DatoCMS. It allows for you to have global SEO & OG tags for the website, but also to specifically define some per page.
 
 
 ## Known issues
