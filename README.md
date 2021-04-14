@@ -188,7 +188,7 @@ Editing content needs to be fast and intuitive. To make it this way, you can eas
 
 First, you may want to check Next.js [official doc](https://nextjs.org/docs/advanced-features/preview-mode) as well as [DatoCMS's one](https://www.datocms.com/blog/live-preview-with-next-js). 
 
-If you actually click that DatoCMS link and read it, you must think it's going to take hours to setup the live preview. Thankfully, that work has already been done. Make sure your project has the [Next.js preview plugin](https://github.com/wbobeirne/datocms-plugin-nextjs-preview) installed. Set the *Preview API path* to `/api/preview` and the *Preview secret* to `MY_LITTLE_SECRET`. Make sure you edit the `DATOCMS_PREVIEW_SECRET` environment variable so you use the same value on all your environments (local as well as whatever you have on Netlify/Vercel). 
+If you actually click that DatoCMS link and read it, you must think it's going to take hours to setup the live preview. Thankfully, that work has already been done. Make sure your project has the [Next.js preview plugin](https://github.com/wbobeirne/datocms-plugin-nextjs-preview) installed. First, set the *Site instance url* to whatever your staging URL will be, set the *Preview API path* to `/api/preview` and the *Preview secret* to `MY_LITTLE_SECRET`. Make sure you edit the `DATOCMS_PREVIEW_SECRET` environment variable so you use the same value on all your environments (local as well as whatever you have on Netlify/Vercel). 
 
 Now head over to the *Content* section of DatoCMS, then click on the *Pages*, open one of the page and open the sidebar on the right and click the *Preview* button:
 
