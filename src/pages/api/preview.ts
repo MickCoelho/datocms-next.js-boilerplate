@@ -16,7 +16,7 @@ const preview = async (
   // // Fetch the headless CMS to check if the provided `slug` exists
   const allPages: CMSPage[] = await getAllPagesSlugs();
   const currentPage = allPages.filter(
-    (page) => page.slug === req.query.slug,
+    (page) => `/${page.slug}` === req.query.slug,
   )[0];
 
   // // If the slug doesn't exist prevent preview mode from being enabled
