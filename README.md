@@ -196,8 +196,7 @@ Now head over to the *Content* section of DatoCMS, then click on the *Pages*, op
 
 You should now have a new window with the preview mode enabled (via cookies) and every DatoCMS update will be automatically displayed (within a few seconds usually) as you save them. To exit the preview mode, just click on the button in the header.
 ## i18n
-We're not done! 
-If needed, you can easily implement new locales on your project. Really, it's super easy. Here's how to:
+We're not done! If needed, you can easily implement new locales on your project. Here's how to do it:
 
 ### DatoCMS
 Open DatoCMS' settings and click settings again (yes, another setting button inside a Settings section, that's weird), inside *Supported language* add whatever locale you'd like to use:
@@ -214,7 +213,6 @@ i18n: {
 ```
 For more informations about i18n and Next.js, check the [official doc](https://nextjs.org/docs/advanced-features/i18n-routing)
 
-### Is this real? 
 If you followed all the steps above, you'll be able to select the locale in the beautifully designed select component located in the footer of each page. That's it. 
 ## SEO and OG tags
 
