@@ -16,7 +16,7 @@
 - Preview mode (draft/published models)
 ## How to use
 ### 1. Clone DatoCMS Project
-[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg)](https://dashboard.datocms.com/clone?projectId=45226&name=B-Reel+Next.js%2FDatoCMS+boilerplate)
+Create a DatoCMS account and simply clone the base [DatoCMS project](https://dashboard.datocms.com/clone?projectId=45226&name=B-Reel+Next.js%2FDatoCMS+boilerplate) 
 ### 2. Set up environment variables
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
 
@@ -26,7 +26,7 @@ cp .env.local.example .env.local
 
 Then set each variable on `.env`:
 - `DATOCMS_API_TOKEN` should be the API token you just copied.
-- `DATOCMS_PREVIEW_SECRET` can be any random string (but avoid spaces), like `MY_SECRET` - this is used for the Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode).
+- `DATOCMS_PREVIEW_SECRET` can be any random string (but avoid spaces), like `MY_SECRET` - [used for the Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode).
 
 Your `.env.local` file should look like this:
 ```bash
@@ -38,9 +38,13 @@ API_URL=https://graphql.datocms.com/
 ### 3. Install and run the project locally
 
 ```bash
-npm install -g vercel
 npm install
 npm run dev
+```
+
+If using Vercel as a hosting solution, make sure to install it as well
+```bash
+npm install -g vercel
 ```
 
 ### 4. Build the project
@@ -53,7 +57,7 @@ npm run start
 ```bash
 npm run export
 ```
-Note that both i18n and fallback pages (in /src/pages/[[...slug]]) aren't yet compatible with `next export`. 
+*Note that both i18n and fallback pages (located in /src/pages/[[...slug]]) aren't yet compatible with `next export`.*
 
 ## Pages logic
 ### Dynamic pages
