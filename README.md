@@ -128,6 +128,17 @@ export const moduleExample2Fragment = `
 ```
 Make sure you export said fragment, now go into `/src/lib/api.ts` file, import the newly created fragment and add it inside the `dynamicPageBySlugQuery` method below the `modules` list as done for the other examples:
 ```javascript
+
+import {
+  RESPONSIVE_IMAGE_FRAGMENT,
+  META_TAGS_FRAGMENT,
+  moduleExample1Fragment,
+  moduleExample2Fragment,
+  moduleExample3Fragment,
+} from './api-fragments';
+
+...
+
 export function dynamicPageBySlugQuery(): string {
   return `
     query PagesBySlug($locale: SiteLocale, $slug: String) {
@@ -173,15 +184,41 @@ Note that we spread the module object like so `{...module}`, so all the data cre
 That's it, voilà.
 
 ## Live previews
-WIP
+Editing content needs to be fast and intuitive. To make it this way, you can easily add live previews to your project (for this, use Vercel/Netlify to host your project).
+
+First, you may want to check Next.js [official doc](https://nextjs.org/docs/advanced-features/preview-mode) as well as [DatoCMS's one](https://www.datocms.com/blog/live-preview-with-next-js). 
+
+If you actually click that DatoCMS link and read it, you must think it's going to take hours to setup the live preview. Thankfully, that work has already been done. Make sure your project has the [Next.js preview plugin](https://github.com/wbobeirne/datocms-plugin-nextjs-preview) installed. Set the *Preview API path* to `/api/preview` and the *Preview secret* to `MY_LITTLE_SECRET`. Make sure you edit the `DATOCMS_PREVIEW_SECRET` environment variable so you use the same value on all your environments (local as well as whatever you have on Netlify/Vercel). 
+
+Now head over to the *Content* section of DatoCMS, then click on the *Pages*, open one of the page and open the sidebar on the right and click the *Preview* button:
+
+![Page live preview](docs/img/page-live-preview.png)
+
+You should now have a new window with the preview mode enabled (via cookies) and every DatoCMS update will be automatically displayed (within a few seconds usually) as you save them. To exit the preview mode, just click on the button in the header.
 ## i18n
+We're not done! 
+If needed, you can easily implement new locales on your project. Really, it's super easy. Here's how to:
+
 ### DatoCMS
-WIP
+Open DatoCMS' settings and click settings again (yes, another setting button inside a Settings section, that's weird), inside *Supported language* add whatever locale you'd like to use:
+
+![Add a locale in DatoCMS](docs/img/add-locale-dato.png)
+
 ### Next config
-WIP
+Edit `next.config.js` file and add (or edit if it already exists) the object `i18n` with all the locales defined like so: 
+```json
+i18n: {
+  locales: ['en', 'sv'],
+  defaultLocale: 'en',
+}
+```
+For more informations about i18n and Next.js, check the [official doc](https://nextjs.org/docs/advanced-features/i18n-routing)
+
+### Is this real? 
+If you followed all the steps above, you'll be able to select the locale in the beautifully designed select component located in the footer of each page. That's it. 
 ## SEO and OG tags
 
-Both SEO and OG tags are directly managed via DatoCMS. It allows for you to have global SEO & OG tags for the website, but also to specifically define some per page.
+Both SEO and OG tags are directly managed via DatoCMS. It allows for you to have global SEO & OG tags for the website, so that's one less thing you'll have to deal with.
 
 
 ## Known issues
