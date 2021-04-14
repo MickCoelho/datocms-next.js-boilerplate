@@ -1,5 +1,9 @@
 # DatoCMS / Next.js boilerplate
 
+## Motivation
+This template's goal is to facilitate the creation of new projects using both [Next.js](https://nextjs.org/) and [DatoCMS](https://www.datocms.com/).
+
+Once fully setup, you'll be able to easily create new pages and add modules entirely managed by a powerful headless CMS. The modular approach is heavily inpsired by Brad Frost's [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/).
 ## Architecture
 
 - TypeScript
@@ -14,10 +18,13 @@
 - Atomic design approach (via DatoCMS)
 - Internationalization
 - Preview mode (draft/published models)
+
+
 ## How to use
 ### 1. Clone DatoCMS Project
-[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg)](https://dashboard.datocms.com/clone?projectId=45226&name=B-Reel+Next.js%2FDatoCMS+boilerplate)
+Create a DatoCMS account and simply clone the base [DatoCMS template](https://dashboard.datocms.com/clone?projectId=45226&name=B-Reel+Next.js%2FDatoCMS+boilerplate) 
 ### 2. Set up environment variables
+In your DatoCMS' project, go to the *Settings* menu at the top and click *API tokens*. Then click *Read-only API token* and copy the token.
 Copy the `.env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
 
 ```bash
@@ -26,7 +33,7 @@ cp .env.local.example .env.local
 
 Then set each variable on `.env`:
 - `DATOCMS_API_TOKEN` should be the API token you just copied.
-- `DATOCMS_PREVIEW_SECRET` can be any random string (but avoid spaces), like `MY_SECRET` - this is used for the Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode).
+- `DATOCMS_PREVIEW_SECRET` can be any random string (no spaces), like `MY_SECRET` - [used for the Preview Mode](https://www.datocms.com/docs/next-js/setting-up-next-js-preview-mode).
 
 Your `.env.local` file should look like this:
 ```bash
@@ -38,9 +45,13 @@ API_URL=https://graphql.datocms.com/
 ### 3. Install and run the project locally
 
 ```bash
-npm install -g vercel
 npm install
 npm run dev
+```
+
+If using Vercel as a hosting solution, make sure to install it as well
+```bash
+npm install -g vercel
 ```
 
 ### 4. Build the project
@@ -53,15 +64,15 @@ npm run start
 ```bash
 npm run export
 ```
-Note that both i18n and fallback pages (in /src/pages/[[...slug]]) aren't yet compatible with `next export`. 
+*Note that both i18n and fallback pages (located in /src/pages/[[...slug]]) aren't yet compatible with `next export`.*
 
 ## Pages logic
 ### Dynamic pages
-**Definition:**
 A dynamic pages is mostly handled by DatoCMS and is composed of: 
  - Name 
  - Slug
  - Modules
+
 The *Name*'s first purpose is to be used to generate the page's title.
 The *Slug* is used to generate a unique URL for the created page.
 Finally, the *Modules* will compose the page itself. You can see modules as an empty component that will be using the content provided in DatoCMS. When first cloning this project, you'll only be able to add a few modules to your page, but you can easily create new ones (see *Modules* section below).
@@ -71,32 +82,112 @@ Most of the dynamic pages' logic will be located in the `/src/pages/[[...slug]].
 The `getStaticPaths` method allows for Next.js to generate all the routes when running `npm run build`, while the
 `getStaticProps` method queries all the data required for the page to be built. The rest of this function component will simply create the page squeleton and inject the created modules into it. 
 ### Static pages
-**Definition:**
 There are occurences when you won't want a modules based page (e.g. a custom page layout that isn't used anywhere else on the website). You can simply create an empty page using DatoCMS and give it a *slug* that starts with `/static/` followed by whatever folder you want to target in your Next.js project. To prevent conflicts with the dynamic pages, all the static pages should be location inside the `/src/pages/static/` directory. 
-
+### Routing
+Note that creating a page doesn't mean that it'll appear in the nav, it'll only generate a new route for said page. If you want the page to appear in the nav (at least, using the current code architecture), go to your DatoCMS project, click *Content* on the upper left and then *Global*, finally, add the created page inside the *Main Navigation* list.
 ## Modules
-**Definition:**
-...
-### Create a new CMS model 
+Pages are the highest level of encapsulation. Modules are what the page is made of.
+Imagine a Homepage with the following structure: 
+| Header          |
+|:---------------:|
+| Hero section    |
+| Carousel        |
+| Story component |
+| Simple text     |
+| Form            |
 
-### Link new module to pages' model
+Each *Hero section*, *Carousel*, *Story component*, *Simple text* and *Form* is a predefined module. Please see below to find out how to create and implement a new module.
+### 1. Create a new CMS model 
+For each of these modules, we first create a model in DatoCMS (to define it's data architecture) via different fields that'll allow an editor to easily create a new instance of said module and add content to it.
+As an example, here's the *Module Example 1* created for this demo's purpose:
 
-### Create GraphQL query
+![Module example 1](docs/img/module-example-1.png)
 
-### Create React component
+You can easily create a new module and add as many fields as you'd like by going into your DatoCMS project, then click *Models* inside the top bar, then *Models* and finally the + sign down at the bottom. Ideally, you'd first provide a *Name* (as pictured on the example above) in order for the DatoCMS' editors to be able to easily find each module they created. The rest is up to you and will depend of the complexity of the module you're trying to implement. 
+### 2. Link new module to pages' model
+When going back to the *Content* section of DatoCMS and inside the *Pages* sidebar, you'll be able to create/edit a page. Note that all modules' models have to be linked to the *Page*s' models in order to be available. By default, the modules section of a page will look like this:
+
+![Add a new module](docs/img/add-new-module.png)
+
+To link a newly created *Module*'s model (yes it's confusing at first), go back to DatoCMS' model section (as described in step 1) and click the *Page* model, then in the *Modules* list, click *Edit field*, and *Validation*
+
+![Page modules list](docs/img/edit-page-modules-list.png)
+
+Make sure the *Accept only specified model* lists your newly created *Module*. When it's added, save and go back to the *Page*s content section in which you'll now be able to add your new module (and inject content to it).
+
+### 3. Create GraphQL query
+So far so good, we now have everything ready in DatoCMS to add/edit modules onto a page. Next step is to create the GraphQL query that allow the Next.js build to get the newly created module's data. To do so, add a new fragment inside `/src/lib/api-fragments.ts`, it's not rocket science, so just use the existing examples as a guide:
+```javascript
+export const moduleExample2Fragment = `
+  ... on ModuleExample2Record {
+    ${MODULE_BASE_FRAGMENT}
+    ctaLabel
+    ctaUrl
+  }
+`;
+```
+Make sure you export said fragment, now go into `/src/lib/api.ts` file, import the newly created fragment and add it inside the `dynamicPageBySlugQuery` method below the `modules` list as done for the other examples:
+```javascript
+export function dynamicPageBySlugQuery(): string {
+  return `
+    query PagesBySlug($locale: SiteLocale, $slug: String) {
+      page(locale: $locale, filter: {slug: {eq: $slug}}) {
+        id
+        slug
+        name
+        seo: _seoMetaTags {
+          ${META_TAGS_FRAGMENT}
+        }
+        modules {
+          ${moduleExample1Fragment}
+          ${moduleExample2Fragment}
+          ${moduleExample3Fragment}
+        }
+      }
+    }
+    ${RESPONSIVE_IMAGE_FRAGMENT}
+  `;
+}
+```
+### 4. Create React component
+Almost there! The final step is to create the React component inside `/src/components/modules/...` (so you keep it clean). Once that's done, import the module inside `/src/components/modules-container/index.tsx` and edit the switch's logic, so the code can deal with your newly created module.
+```javascript
+switch (module.type) {
+  case 'module_example1':
+    component = <ModuleExample1 {...module} />;
+    break;
+  case 'module_example2':
+    component = <ModuleExample2 {...module} />;
+    break;
+  case 'module_example3':
+    component = <ModuleExample3 {...module} />;
+    break;
+  default:
+    component = <div />;
+    break;
+}
+
+```
+Note that we spread the module object like so `{...module}`, so all the data created via DatoCMS (if correctly fetched via GraphQL) will be available inside your module's `.tsx` file.
+
+That's it, voilà.
 
 ## Live previews
+WIP
 ## i18n
 ### DatoCMS
+WIP
 ### Next config
-
+WIP
 ## SEO and OG tags
 
 Both SEO and OG tags are directly managed via DatoCMS. It allows for you to have global SEO & OG tags for the website, but also to specifically define some per page.
 
 
 ## Known issues
-### next export
+#### next export
 Due to the i18n implementation, `next export` isn't supported. If Netlify/Vercel aren't a viable solution, the routing logic can still be updated manually in order to manage locales.
-### PostCSS
+#### PostCSS nesting
 - [postcss-nested](https://github.com/postcss/postcss-nested/issues/110) As a temprory fix, avoid nesting too much selectors
+#### PostCSS `exportLocalsConvention`
+To allow for camelCase classnames coming from the style modules, the next config had to be manually update as Next.js doesn't allow yet to provide a config for PostCSS. As a result, webpack5 cannot be implemented yet.
