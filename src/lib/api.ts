@@ -69,7 +69,7 @@ export async function getGlobalData(
 export async function getAllPagesSlugs(): Promise<CMSPage[]> {
   const query = `
     {
-      allPages {
+      allPages(first: "100") {
         id
         slug
         name
