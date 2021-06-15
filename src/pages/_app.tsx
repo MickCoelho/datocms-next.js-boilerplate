@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
 import type { AppContext, AppProps } from 'next/app';
+import Link from 'next/link';
 import { CMSApp } from '../interfaces/index';
 import Header from '../components/header';
 import { getGlobalData } from '../lib/api';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const App = ({ Component, pageProps, appProps }: Props) => {
+const App = ({ Component, pageProps, appProps }: Props & AppProps) => {
   const router = useRouter();
 
   return (
@@ -30,7 +30,10 @@ const App = ({ Component, pageProps, appProps }: Props) => {
           <div className={styles.previewBanner}>
             <p>
               <b>PREVIEW MODE ENABLED</b>, click{' '}
-              <a href="/api/exit-preview">here</a> to exit
+              <Link href="/api/exit-preview">
+                <a>here</a>
+              </Link>{' '}
+              to exit
             </p>
           </div>
           <hr />

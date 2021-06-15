@@ -1,9 +1,9 @@
-.links-wrapper {
+.linksWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.navigation-link {
+.navigationLink {
   margin-right: 10px;
 }
