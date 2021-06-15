@@ -6,6 +6,7 @@ const ModuleExample1: any = (module: CMSModuleExample1) => {
   return (
     <>
       <h3>{headline}</h3>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         data={image.responsiveImage}
         style={{

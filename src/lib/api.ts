@@ -106,7 +106,6 @@ export function dynamicPageBySlugQuery(): string {
 export async function getDynamicPageBySlug(
   slug: string,
   preview: boolean,
-  locale = 'en',
 ): Promise<unknown> {
   const query = dynamicPageBySlugQuery();
 
